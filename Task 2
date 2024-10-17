@@ -1,0 +1,37 @@
+-- CREATE TABLE
+create table salesman(
+    salesman_id int primary key,
+	name varchar(25),
+	city varchar(30),
+	commission float
+)
+-- INSERT DATA
+	INSERT INTO salesman (salesman_id, name, city, commission)VALUES 
+(5001, 'James Hooq', 'New York', 200.15),
+(5002, 'Nail Knnte', 'Paris', 102.13),
+(5005, 'Pit Alex', 'London', 450.11),
+(5006, 'Mac Lyson', 'Paris', 154.14),
+(5003, 'Lauson Hen', 'Random', 450.12),
+(5007, 'Paul Adam', 'Rome', 480.13);
+
+-- To see table with values
+SELECT * FROM salesman
+	
+
+-- AGGREATE FUNCTIONS
+-- #MIN, find minimum commissiom that salesman recive.
+select min(commission) from salesman
+	
+-- #MAX, find maximum commissiom that salesman recive.
+select max(commission) from salesman
+	
+-- #AVG, find Average commissiom that salesman recive.
+select Avg(commission) from salesman
+	
+-- #COUNT , no. of salesman 
+select count(*) from salesman
+	
+-- #SUM ,find   total commissiom 
+select sum(commission) from salesman
+
+
