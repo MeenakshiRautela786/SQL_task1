@@ -42,7 +42,7 @@ VALUES
 -- #INNER JOIN 
 --ON THE BASIS OF ID 
 SELECT * FROM CUSTOMER INNER JOIN SALESMAN ON
-	SALESMAN.SALESMAN_ID=CUSTOMER.SALESMAN_IDORDER BY CUSTOMER.SALESMAN_ID ASC
+	SALESMAN.SALESMAN_ID=CUSTOMER.SALESMAN_ID  order by CUSTOMER.SALESMAN_ID ASC
 
 -- # LEFT JOIN
 SELECT * FROM SALESMAN LEFT JOIN CUSTOMER ON 
@@ -59,7 +59,7 @@ select * from customer full outer join salesman on
 	
 -- #cross  join 
 select * from customer cross join salesman 
-	on customer.salesman_id=salesman.salesman_id
+	
 
 
 
