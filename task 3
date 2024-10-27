@@ -1,0 +1,65 @@
+-- create the salesman table 
+create table salesman(
+    salesman_id int primary key,
+	name varchar(25),
+	city varchar(30),
+	commission float
+)
+-- create the customer table
+create table customer(
+	customer_id int primary key,
+	customer_name varchar (50),
+	city varchar(50),
+	grade int,
+	salesman_id int,
+	foreign key(salesman_id) references salesman(salesman_id)
+)
+	
+-- inserting into salesman values
+INSERT INTO salesman (salesman_id, name, city, commission)
+VALUES 
+(5001, 'james hooq', 'new york', 0.15),
+(5002, 'nail knnte', 'pairs', 0.13),
+(5005, 'pit alex', 'london', 0.11),
+(5006, 'mac lyson', 'paris', 0.14),
+(5003, 'lauson hen', 'random', 0.12),
+(5007, 'paul adam', 'roam', 0.13);
+
+ 
+-- inserting into customer values
+INSERT INTO customer (customer_id, customer_name, city, grade, salesman_id)
+VALUES 
+(3002, 'nick remando', 'new york', 100, 5001),
+(3005, 'gram jusi', 'california', 200, 5002),
+(3001, 'brad guzan', 'londan', NULL, NULL),
+(3004, 'fabin johns', 'paris', 306, 5006),
+(3007, 'brad deivs', 'new york', 200, 5001),
+(3009, 'geaoff camero', 'berlin', 100, NULL),
+(3008, 'jolien green', 'london', 300, 5002),
+(3003, 'jozy altidore', 'moncow', 200, 5007);
+
+
+-- #INNER JOIN 
+--ON THE BASIS OF ID 
+SELECT * FROM CUSTOMER INNER JOIN SALESMAN ON
+	SALESMAN.SALESMAN_ID=CUSTOMER.SALESMAN_IDORDER BY CUSTOMER.SALESMAN_ID ASC
+
+-- # LEFT JOIN
+SELECT * FROM SALESMAN LEFT JOIN CUSTOMER ON 
+	SALESMAN.SALESMAN_ID=CUSTOMER.SALESMAN_ID
+ORDER BY SALESMAN.SALESMAN_ID
+
+-- #Right join
+select * from customer right join salesman on
+	customer.salesman_id=salesman.salesman_id
+
+-- #Outer join 
+select * from customer full outer join salesman on
+	customer.salesman_id=salesman.salesman_id
+	
+-- #cross  join 
+select * from customer cross join salesman 
+	on customer.salesman_id=salesman.salesman_id
+
+
+
