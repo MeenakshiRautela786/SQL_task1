@@ -1,0 +1,42 @@
+-- SQL Constraints
+-- not null , Primary key,Unique , check constarints 
+create table customer(
+	customer_id int primary key,
+	customer_name varchar (50) NOT NULL,
+	city varchar(50) Unique,
+	grade int,
+	salesman_id int,
+    check (salesman_id>=20000)
+)
+
+-- inserting into customer table
+ insert into customer values
+	(7,'sia','jamnagar',2,20500),
+(2,'khana','kolkata',1,29000),
+(3,'ram','ajmer',5,30000),
+(4,'siya','jasalmer',4,40000),
+(5,'geeta','kota',4,80000),
+(6,'rama','rampur',7,70000)
+
+-- show table customer 
+
+select * from customer 
+	
+-- foreign key contarint
+create table orders(
+	order_no int primary key,
+	purch_amt float,
+	order_date date,
+	customer_id int,
+	foreign key(customer_id) references customer(customer_id))
+
+-- inserting into orders table
+insert into orders values
+	(7008,150.2,'2016-01-05',7),
+(7002,158.2,'2018-09-04',7),
+(7003,550.40,'2018-08-15',1),
+(7004,150.25,'2019-10-25',6),
+(7005,750.1,'2015-08-30',7)
+
+-- show orders table
+select * from orders 
