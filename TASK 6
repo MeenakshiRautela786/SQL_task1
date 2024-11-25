@@ -17,7 +17,7 @@ CREATE TABLE PRODUCT (
 );
 
 -- Create ORDER table
-CREATE TABLE ORDER (
+CREATE TABLE ORDERS (
     OrderID INT PRIMARY KEY ,
     CustomerID INT,
     OrderDate DATE,
@@ -31,32 +31,32 @@ CREATE TABLE ORDER_PRODUCT (
     ProductID INT,
     Quantity INT,
     PRIMARY KEY (OrderID, ProductID),
-    FOREIGN KEY (OrderID) REFERENCES ORDER(OrderID),
+    FOREIGN KEY (OrderID) REFERENCES ORDERS(OrderID),
     FOREIGN KEY (ProductID) REFERENCES PRODUCT(ProductID)
 );
 -- Insert values into CUSTOMER
-INSERT INTO CUSTOMER (FirstName, LastName, Email, Phone, Address)
+INSERT INTO CUSTOMER (CustomerID,FirstName, LastName, Email, Phone, Address)
 VALUES 
-('John', 'Doe', 'john.doe@example.com', '555-1234', '123 Elm St'),
-('Jane', 'Smith', 'jane.smith@example.com', '555-5678', '456 Oak St');
+( 1,'John', 'Doe', 'john.doe@example.com', '555-1234', '123 Elm St'),
+( 2,'Jane', 'Smith', 'jane.smith@example.com', '555-5678', '456 Oak St');
 
 -- Insert values into PRODUCT
-INSERT INTO PRODUCT (ProductName, Price, StockQuantity)
+INSERT INTO PRODUCT (ProductID ,ProductName, Price, StockQuantity)
 VALUES 
-('Widget', 19.99, 100),
-('Gadget', 29.99, 50);
+( 02,'Widget', 19.99, 100),
+(05,'Gadget', 29.99, 50);
 
 -- Insert values into ORDER
-INSERT INTO ORDER (CustomerID, OrderDate, TotalAmount)
+INSERT INTO ORDERS (OrderID,CustomerID, OrderDate, TotalAmount)
 VALUES 
-(1, '2024-09-13', 49.98),
-(2, '2024-09-14', 29.99);
+(02,1, '2024-09-13', 49.98),
+(04,2, '2024-09-14', 29.99);
 
 -- Insert values into ORDER_PRODUCT
 INSERT INTO ORDER_PRODUCT (OrderID, ProductID, Quantity)
 VALUES 
-(1, 1, 2),  -- John Doe ordered 2 Widgets
-(2, 2, 1);  -- Jane Smith ordered 1 Gadget ;
+(02, 05, 2),  -- John Doe ordered 2 Widgets
+(04, 02, 1);  -- Jane Smith ordered 1 Gadget ;
 
 
 SELECT *FROM CUSTOMER;
@@ -68,10 +68,10 @@ SELECT COUNT(*) AS total_orders from ORDER_PRODUCT;
 SELECT * FROM  ORDER_PRODUCT LIMIT 10;
 --- Total Number of Orders
 SELECT COUNT(*) AS TotalOrders
-FROM ORDER;
+FROM ORDERS;
 --Average Order Value
 SELECT AVG(TotalAmount) AS AverageOrderValue
-FROM ORDER;
+FROM ORDERS;
  --Top Products by Sales
 SELECT p.ProductName, SUM(op.Quantity) AS TotalQuantitySold
 FROM ORDER_PRODUCT op
@@ -80,7 +80,7 @@ GROUP BY p.ProductName
 ORDER BY TotalQuantitySold DESC;
 --Total Revenue
 SELECT SUM(TotalAmount) AS TotalRevenue
-FROM ORDER;
+FROM ORDERS;
 --- Most Frequently Bought Product
 SELECT p.ProductName, COUNT(*) AS NumberOfTimesBought
 FROM ORDER_PRODUCT op
@@ -89,7 +89,7 @@ GROUP BY p.ProductName
 ORDER BY NumberOfTimesBought DESC;
 
 -- Peak Order Time (MySQL)
-SELECT HOUR(OrderDate) AS HourOfDay, COUNT(*) AS NumberOfOrders
-FROM ORDER
+SELECT extract (HOUR from OrderDate :: timestamp) AS HourOfDay, COUNT(*) AS NumberOfOrders
+FROM ORDERS
 GROUP BY HourOfDay
 ORDER BY NumberOfOrders DESC;
